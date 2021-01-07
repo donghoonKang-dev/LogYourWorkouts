@@ -1,11 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>donghoon</title>
+    <title>Workout Log</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>donghoon</h1>
-    <p>Welcome to donghoon</p>
+    <h1>Your Workout Log</h1>
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="">
+      </div>
+      <div>
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" value="">
+      </div>
+      <div>
+        <label for="workout">workout</label>
+        <input type="text" id="workout" name="workout" value="">
+      </div>
+      <div>
+        <button id="submit">Submit</button>
+        <button id="show">Show</button>
+      </div>
   </body>
+  <script>
+    document.getElementById('submit').addEventListener('click', () => {
+      let name = document.getElementById('name').value;
+      let date = document.getElementById('date').value;
+      let workout = document.getElementById('workout').value;
+      //POST
+      fetch('http://localhost:8080/stack', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: name,
+          date: date,
+          workout: workout
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.text())
+      .then(console.log)
+    })
+    document.getElementById('show').addEventListener('click', () => {
+      // GET
+      fetch('http://localhost:8080/stack')
+      .then(response => response.text())
+      .then(alert)
+    })
+  </script>
 </html>
