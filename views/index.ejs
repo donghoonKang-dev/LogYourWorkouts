@@ -29,7 +29,7 @@
       let date = document.getElementById('date').value;
       let workout = document.getElementById('workout').value;
       //POST
-      fetch('http://localhost:8080/stack', {
+      fetch('http://localhost:8080/workout', {
         method: 'POST',
         body: JSON.stringify({
           name: name,
@@ -42,12 +42,12 @@
       })
       .then(response => response.text())
       .then(console.log)
-    })
+    });
     document.getElementById('show').addEventListener('click', () => {
-      // GET
-      fetch('http://localhost:8080/stack')
+      //GET
+      fetch('http://localhost:8080/workout')
       .then(response => response.text())
       .then(alert)
-    })
+    });
   </script>
 </html>
