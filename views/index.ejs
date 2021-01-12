@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Workout Log</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   </head>
   <body>
     <h1>Your Workout Log</h1>
@@ -23,7 +23,7 @@
         <button id="show">Show</button>
       </div>
       <div>
-        <table id="workoutTable">
+        <table id="workoutTable" class="table">
           <thead id="tHead">
             <tr>
               <th scope="col" class="no">number</th>
@@ -64,7 +64,8 @@
       .then(response => response.json())
       .then(function(response){
         let tBody = document.getElementById("tBody");
-        for (let i=0 ; i <response.length ; i++){
+        tBody.innerHTML = ``;
+        for (let i=response.length-1 ; i >= 0 ; i--){
           let row = `<tr>
                             <td>${i+1}</td>
                             <td>${response[i].name}</td>

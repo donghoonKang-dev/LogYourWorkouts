@@ -27,17 +27,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('/public'));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 //DB schema
 let logSchema = mongoose.Schema({
-  name:{type:String, required:true},
-  date:{type:Date, required:true},
-  workout:{type:String, required:true}
+  name:{type:String, required:true, unique:false},
+  date:{type:Date, required:true, unique:false},
+  workout:{type:String, required:true, unique:false}
 });
 let workoutLog = mongoose.model('workoutLog', logSchema);
-let data = 'no data';
 
 app.get('/', (req, res) => {
   res.render('index');
