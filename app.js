@@ -44,34 +44,25 @@ app.get('/', (req, res) => {
 })
 
 app.get('/workout', (req, res) => {
-  res.send(data);
-})
-
-app.get('/workout/:name', (req, res) => {
-  workoutLog.find({name : req.params.name}, {name:1, date:1, workout:1}, function(err, workouts){
-    if(err) return res.status(500).json({error:error});
-    if(workouts.length === 0) return res.status(404).json({error: 'workoutlog not found'});
+  workoutLog.find(function(err, workouts){
+    if(err) return res.status(500).send({error: 'database failure'});
     res.json(workouts);
   });
 })
 
 app.post('/workout', (req, res) => {
   data = req.body;
-  /*
-  console.log(`data: ${data}`);
-  res.send('okay');
-  */
- let workoutData = new workoutLog();
- workoutData.name = req.body.name;
- workoutData.date = req.body.date;
- workoutData.workout = req.body.workout;
-workoutData.save(function(err){
-  if(err){
-    console.error(err);
-    res.json({result:0});
-    return;
-  }
-  res.json({result:1});
+  let workoutData = new workoutLog();
+  workoutData.name = req.body.name;
+  workoutData.date = req.body.date;
+  workoutData.workout = req.body.workout;
+  workoutData.save(function(err){
+    if(err){
+      console.error(err);
+      res.json({result:0});
+      return;
+    }
+    res.json({result:1});
   });
 })
 

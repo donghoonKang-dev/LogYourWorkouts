@@ -22,6 +22,21 @@
         <button id="submit">Submit</button>
         <button id="show">Show</button>
       </div>
+      <div>
+        <table id="workoutTable">
+          <thead id="tHead">
+            <tr>
+              <th scope="col" class="no">number</th>
+              <th scope="col" class="name">name</th>
+              <th scope="col" class="date">date</th>
+              <th scope="col" class="workout">workout</th>
+            </tr>
+          </thead>
+          <tbody id="tBody">
+
+          </tbody>
+        </table>
+      </div>
   </body>
   <script>
     document.getElementById('submit').addEventListener('click', () => {
@@ -46,8 +61,19 @@
     document.getElementById('show').addEventListener('click', () => {
       //GET
       fetch('http://localhost:8080/workout')
-      .then(response => response.text())
-      .then(alert)
+      .then(response => response.json())
+      .then(function(response){
+        let tBody = document.getElementById("tBody");
+        for (let i=0 ; i <response.length ; i++){
+          let row = `<tr>
+                            <td>${i+1}</td>
+                            <td>${response[i].name}</td>
+                            <td>${response[i].date.slice(0,-14)}</td>
+                            <td>${response[i].workout}</td>
+                          </tr>`
+                          tBody.innerHTML += row;
+        }
+      })
     });
   </script>
 </html>
