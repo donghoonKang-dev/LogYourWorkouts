@@ -30,6 +30,8 @@
               <th scope="col" class="name">name</th>
               <th scope="col" class="date">date</th>
               <th scope="col" class="workout">workout</th>
+              <th scope="col" class="update">update</th>
+              <th scope="col" class="delete">delete</th>
             </tr>
           </thead>
           <tbody id="tBody">
@@ -39,6 +41,7 @@
       </div>
   </body>
   <script>
+    //SUBMIT BUTTON LISTENER
     document.getElementById('submit').addEventListener('click', () => {
       let name = document.getElementById('name').value;
       let date = document.getElementById('date').value;
@@ -58,6 +61,7 @@
       .then(response => response.text())
       .then(console.log)
     });
+    //SHOW BUTTON LISTENER
     document.getElementById('show').addEventListener('click', () => {
       //GET
       fetch('http://localhost:8080/workout')
@@ -66,15 +70,53 @@
         let tBody = document.getElementById("tBody");
         tBody.innerHTML = ``;
         for (let i=response.length-1 ; i >= 0 ; i--){
-          let row = `<tr>
+          let row = `<tr id='tr${i+1}'>
                             <td>${i+1}</td>
                             <td>${response[i].name}</td>
                             <td>${response[i].date.slice(0,-14)}</td>
                             <td>${response[i].workout}</td>
-                          </tr>`
-                          tBody.innerHTML += row;
+                            <td>
+                              <button id="update-btn">update</button>
+                            </td>
+                            <td>
+                              <button id="delete-btn">delete</button>
+                            </td>
+                          </tr>`;
+          tBody.innerHTML += row;
         }
       })
+    });
+    //DELETE BUTTON LISTENER
+    document.getElementById('workoutTable').addEventListener('click', (event) => {
+      if(event.target && event.target.id == 'delete-btn'){
+        let trId = event.target.parentNode.parentNode.id;
+        let tr = document.getElementById(trId);
+        let td = tr.getElementsByTagName("td");
+        let deleteId = td[2].innerHTML;
+        fetch('http://localhost:8080/workout/deleteProcess/' + deleteId, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(function(response){
+            let tBody = document.getElementById("tBody");
+            tBody.innerHTML = ``;
+            for (let i=response.length-1 ; i >= 0 ; i--){
+              let row = `<tr id='tr${i+1}'>
+                                <td>${i+1}</td>
+                                <td>${response[i].name}</td>
+                                <td>${response[i].date.slice(0,-14)}</td>
+                                <td>${response[i].workout}</td>
+                                <td>
+                                  <button id="update-btn">update</button>
+                                </td>
+                                <td>
+                                  <button id="delete-btn">delete</button>
+                                </td>
+                              </tr>`;
+              tBody.innerHTML += row;
+            }
+          })
+      }
     });
   </script>
 </html>
