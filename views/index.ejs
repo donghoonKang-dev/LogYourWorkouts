@@ -84,11 +84,12 @@
                             </td>
                           </tr>
                           <tr class="collapse" id="updateArea${i+1}">
-                            <td>넘버자리</td>
-                            <td>이름자리</td>
-                            <td><input type="date" id="update-date${i+1}" name="date" value=""></td>
-                            <td><input type="text" id="update-workout${i+1}" name="workout" value=""></td>
+                            <td>${i+1}</td>
+                            <td>${response[i].name}</td>
+                            <td>${response[i].date.slice(0,-14)}</td>
+                            <td><input type="text" id="update-workout${i+1}" name="workout" value="${response[i].workout}"></td>
                             <td><button id="done-btn" class="btn btn-danger" type="button">done</button></td>
+                            <td></td>
                           </tr>`;
           tBody.innerHTML += row;
         }
@@ -110,33 +111,50 @@
             tBody.innerHTML = ``;
             for (let i=response.length-1 ; i >= 0 ; i--){
               let row = `<tr id='tr${i+1}'>
-                                <td>${i+1}</td>
-                                <td>${response[i].name}</td>
-                                <td>${response[i].date.slice(0,-14)}</td>
-                                <td>${response[i].workout}</td>
-                                <td>
-                                  <button id="update-btn">update</button>
-                                </td>
-                                <td>
-                                  <button id="delete-btn">delete</button>
-                                </td>
-                              </tr>`;
+                            <td>${i+1}</td>
+                            <td>${response[i].name}</td>
+                            <td>${response[i].date.slice(0,-14)}</td>
+                            <td>${response[i].workout}</td>
+                            <td>
+                              <button id="update-btn" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#updateArea${i+1}" aria-expanded="false" aria-controls="collapseExample">update</button>
+                            </td>
+                            <td>
+                              <button id="delete-btn" class="btn btn-primary" type="button">delete</button>
+                            </td>
+                          </tr>
+                          <tr class="collapse" id="updateArea${i+1}">
+                            <td>${i+1}</td>
+                            <td>${response[i].name}</td>
+                            <td>${response[i].date.slice(0,-14)}</td>
+                            <td><input type="text" id="update-workout${i+1}" name="workout" value="${response[i].workout}"></td>
+                            <td><button id="done-btn" class="btn btn-danger" type="button">done</button></td>
+                            <td></td>
+                          </tr>`;
               tBody.innerHTML += row;
             }
           })
       }
     });
     //<<==========UPDATE BUTTON LISTENER==========>>
-    /*
     document.getElementById('workoutTable').addEventListener('click', (event) => {
-      if(event.target && event.target.id == 'update-btn'){
+      if(event.target && event.target.id == 'done-btn'){
         let trId = event.target.parentNode.parentNode.id;
         let tr = document.getElementById(trId);
         let td = tr.getElementsByTagName("td");
-        console.log(td[2]);
-        let deleteId = td[2].innerHTML;
-        fetch('http://localhost:8080/workout/deleteProcess/' + deleteId, {
-            method: 'DELETE',
+        let updateId = td[2].innerHTML;
+        let thisNum = trId.slice(-1);
+        let workout = document.getElementById(`update-workout${thisNum}`).value;
+        let thisName = td[1].innerHTML;
+        fetch('http://localhost:8080/workout/updateProcess/' + updateId, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: thisName,
+              date: updateId,
+              workout : workout
+            })
           })
           .then(response => response.json())
           .then(function(response){
@@ -144,22 +162,29 @@
             tBody.innerHTML = ``;
             for (let i=response.length-1 ; i >= 0 ; i--){
               let row = `<tr id='tr${i+1}'>
-                                <td>${i+1}</td>
-                                <td>${response[i].name}</td>
-                                <td>${response[i].date.slice(0,-14)}</td>
-                                <td>${response[i].workout}</td>
-                                <td>
-                                  <button id="update-btn">update</button>
-                                </td>
-                                <td>
-                                  <button id="delete-btn">delete</button>
-                                </td>
-                              </tr>`;
+                            <td>${i+1}</td>
+                            <td>${response[i].name}</td>
+                            <td>${response[i].date.slice(0,-14)}</td>
+                            <td>${response[i].workout}</td>
+                            <td>
+                              <button id="update-btn" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#updateArea${i+1}" aria-expanded="false" aria-controls="collapseExample">update</button>
+                            </td>
+                            <td>
+                              <button id="delete-btn" class="btn btn-primary" type="button">delete</button>
+                            </td>
+                          </tr>
+                          <tr class="collapse" id="updateArea${i+1}">
+                            <td>${i+1}</td>
+                            <td>${response[i].name}</td>
+                            <td>${response[i].date.slice(0,-14)}</td>
+                            <td><input type="text" id="update-workout${i+1}" name="workout" value="${response[i].workout}"></td>
+                            <td><button id="done-btn" class="btn btn-danger" type="button">done</button></td>
+                            <td></td>
+                          </tr>`;
               tBody.innerHTML += row;
             }
           })
       }
     });
-    */
   </script>
 </html>

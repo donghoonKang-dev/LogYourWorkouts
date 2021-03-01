@@ -31,7 +31,7 @@ db.on('error', function(err){
 //DB schema
 let logSchema = mongoose.Schema({
   name:{type:String, required:true, unique:false},
-  date:{type:Date, required:true, unique:false},
+  date:{type:Date, required:true, unique:true},
   workout:{type:String, required:true, unique:false}
 });
 let workoutLog = mongoose.model('workoutLog', logSchema);
@@ -71,6 +71,18 @@ app.delete('/workout/deleteProcess/:deleteId', function(req, res){
         res.json(workouts);
       })
     })
+});
+
+app.put('/workout/updateProcess/:updateId', function(req, res){
+  console.log(req.body.date);
+  workoutLog.updateOne({date:req.body.date}, {workout:req.body.workout}, function(err, output){
+    if(err) res.status(500).json({ error: 'database failure' });
+    if(!output.n) return res.status(404).json({ error: 'workout not found' });
+    workoutLog.find(function(err2, workouts){
+      if(err2) return res.status(500).send({error: 'database failure'});
+      res.json(workouts);
+    })
+  })
 });
 
 app.listen(port, () => {
