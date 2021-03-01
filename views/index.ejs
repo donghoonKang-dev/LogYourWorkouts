@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Workout Log</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   </head>
   <body>
     <h1>Your Workout Log</h1>
@@ -22,7 +22,7 @@
         <button id="submit">Submit</button>
         <button id="show">Show</button>
       </div>
-      <div>
+      <div class="table-responsive">
         <table id="workoutTable" class="table">
           <thead id="tHead">
             <tr>
@@ -39,9 +39,10 @@
           </tbody>
         </table>
       </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
   </body>
   <script>
-    //SUBMIT BUTTON LISTENER
+    //<<==========SUBMIT BUTTON LISTENER==========>>
     document.getElementById('submit').addEventListener('click', () => {
       let name = document.getElementById('name').value;
       let date = document.getElementById('date').value;
@@ -61,7 +62,7 @@
       .then(response => response.text())
       .then(console.log)
     });
-    //SHOW BUTTON LISTENER
+    //<<==========SHOW BUTTON LISTENER==========>>
     document.getElementById('show').addEventListener('click', () => {
       //GET
       fetch('http://localhost:8080/workout')
@@ -76,17 +77,24 @@
                             <td>${response[i].date.slice(0,-14)}</td>
                             <td>${response[i].workout}</td>
                             <td>
-                              <button id="update-btn">update</button>
+                              <button id="update-btn" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#updateArea${i+1}" aria-expanded="false" aria-controls="collapseExample">update</button>
                             </td>
                             <td>
-                              <button id="delete-btn">delete</button>
+                              <button id="delete-btn" class="btn btn-primary" type="button">delete</button>
                             </td>
+                          </tr>
+                          <tr class="collapse" id="updateArea${i+1}">
+                            <td>넘버자리</td>
+                            <td>이름자리</td>
+                            <td><input type="date" id="update-date${i+1}" name="date" value=""></td>
+                            <td><input type="text" id="update-workout${i+1}" name="workout" value=""></td>
+                            <td><button id="done-btn" class="btn btn-danger" type="button">done</button></td>
                           </tr>`;
           tBody.innerHTML += row;
         }
       })
     });
-    //DELETE BUTTON LISTENER
+    //<<==========DELETE BUTTON LISTENER==========>>
     document.getElementById('workoutTable').addEventListener('click', (event) => {
       if(event.target && event.target.id == 'delete-btn'){
         let trId = event.target.parentNode.parentNode.id;
@@ -118,5 +126,40 @@
           })
       }
     });
+    //<<==========UPDATE BUTTON LISTENER==========>>
+    /*
+    document.getElementById('workoutTable').addEventListener('click', (event) => {
+      if(event.target && event.target.id == 'update-btn'){
+        let trId = event.target.parentNode.parentNode.id;
+        let tr = document.getElementById(trId);
+        let td = tr.getElementsByTagName("td");
+        console.log(td[2]);
+        let deleteId = td[2].innerHTML;
+        fetch('http://localhost:8080/workout/deleteProcess/' + deleteId, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(function(response){
+            let tBody = document.getElementById("tBody");
+            tBody.innerHTML = ``;
+            for (let i=response.length-1 ; i >= 0 ; i--){
+              let row = `<tr id='tr${i+1}'>
+                                <td>${i+1}</td>
+                                <td>${response[i].name}</td>
+                                <td>${response[i].date.slice(0,-14)}</td>
+                                <td>${response[i].workout}</td>
+                                <td>
+                                  <button id="update-btn">update</button>
+                                </td>
+                                <td>
+                                  <button id="delete-btn">delete</button>
+                                </td>
+                              </tr>`;
+              tBody.innerHTML += row;
+            }
+          })
+      }
+    });
+    */
   </script>
 </html>
