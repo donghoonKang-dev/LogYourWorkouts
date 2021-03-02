@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Workout Log</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Log Your Workout</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Your Workout Log</h1>
+    <nav id="myNavbar" class="navbar navbar-expand-md navbar-light fixed-top">
+      <a class="navbar-brand" href="/">
+        <img src="/images/LOGO.png" width="125" height="35" alt="logo">
+      </a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" data-scroll-nav="0" href="#">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" data-scroll-nav="1" href="#">LOGyours</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" data-scroll-nav="2" href="#">yourLOG</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="myHome"class="d-flex">
+      <div class="jumbotron position-relative">
+        <h1>Change your shape by LOGing your workout</h1>
+        <button class="btn btn-primary">Start !</button>
+      </div>
+    </div>
+    <div id="myForm" class="d-flex flex-column">
       <div>
         <label for="name">Name</label>
         <input type="text" id="name" name="name" value="">
@@ -22,6 +49,8 @@
         <button id="submit">Submit</button>
         <button id="show">Show</button>
       </div>
+    </div>
+    <div id="myTable" class="d-flex">
       <div class="table-responsive">
         <table id="workoutTable" class="table">
           <thead id="tHead">
@@ -39,7 +68,8 @@
           </tbody>
         </table>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
   </body>
   <script>
     //<<==========SUBMIT BUTTON LISTENER==========>>
