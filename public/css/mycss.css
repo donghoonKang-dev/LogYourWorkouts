@@ -1,0 +1,12 @@
+.home {
+    height: 100vh;
+    min-height: 500px;
+    position: relative;
+    background-size: cover;
+    background-attachment: scroll;
+    background-image: url(/images/home.jpg);
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
