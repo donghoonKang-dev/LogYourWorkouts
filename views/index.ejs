@@ -9,44 +9,48 @@
     <link href="/css/mycss.css" rel="stylesheet">
   </head>
   <body>
-    <header class="site-header sticky-top py-1">
+    <header class="site-header sticky-top py-1 bg-light-gray">
       <nav id="myNavbar" class="container d-flex flex-column flex-md-row justify-content-between ms-1 me-1">
-        <a class="py-2" href="/">
+        <a class="py-2 txt-link" href="/">
           <img src="/images/LOGO.png" width="125" height="35" alt="logo">
         </a>
-        <a class="py-2 d-none d-md-inline-block" href="#">HOME</a>
-        <a class="py-2 d-none d-md-inline-block" href="#">LOGyours</a>
-        <a class="py-2 d-none d-md-inline-block" href="#">yourLOG</a>
+        <a class="py-2 mt-2 d-none d-md-inline-block txt-link" href="#myHome">HOME</a>
+        <a class="py-2 mt-2 d-none d-md-inline-block txt-link" href="#myForm">LOGyours</a>
+        <a class="py-2 mt-2 d-none d-md-inline-block txt-link" href="#myTable">yourLOG</a>
       </nav>
     </header>
-    <div id="myHome" class="home">
-      <div class="col-6 p-5 mx-auto my-5">
-        <h1>Change your shape by LOGing your workout</h1>
-        <button class="btn btn-primary">Start !</button>
+    <section id="myHome" class="myhome">
+      <div class="col-12 p-5 mx-auto my-5 bg-trans-dark">
+        <h1>Change your shape by<br>LOGing your workout</h1>
+        <button class="mt-4 btn btn-danger"><a class="txt-link-light" href="#myForm">Start !</a></button>
       </div>
-    </div>
-    <div id="myForm">
-      <div>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" value="">
+    </section>
+    <div class="myMargin"></div>
+    <section id="myForm" class="myForm row g-3 align-items-center">
+      <div class="col-6 p-5 mx-auto my-5 text-center bg-trans-dark" >
+        <div class="p-3 col-auto">
+          <label for="name" class="col-2 col-form-label">Name</label>
+          <input type="text" id="name" name="name" value="" class="col-10 form-control">
+        </div>
+        <div class="p-3 col-auto">
+          <label for="date" class="col-2 col-form-label">Date</label>
+          <input type="date" id="date" name="date" value="" class="col-10 form-control">
+        </div>
+        <div class="p-3 col-auto">
+          <label for="workout" class="col-2 col-form-label">workout</label>
+          <input type="text" id="workout" name="workout" value="" class="col-10 form-control">
+        </div>
+        <div class="p-3">
+          <button id="submit" class="txt-link">Submit</button>
+          <button id="show"><a class="txt-link" href="#myTable">Show</a></button>
+        </div>
       </div>
-      <div>
-        <label for="date">Date</label>
-        <input type="date" id="date" name="date" value="">
-      </div>
-      <div>
-        <label for="workout">workout</label>
-        <input type="text" id="workout" name="workout" value="">
-      </div>
-      <div>
-        <button id="submit">Submit</button>
-        <button id="show">Show</button>
-      </div>
-    </div>
-    <div id="myTable">
-      <div class="table-responsive">
-        <table id="workoutTable" class="table">
-          <thead id="tHead">
+    </section>
+    <div class="myMargin"></div>
+    <section id="myTable" class="myTable">
+      <div class="table-responsive col-12">
+        <table id="workoutTable" class="table table-hover">
+          <thead id="tHead" class="table-light">
             <tr>
               <th scope="col" class="no">number</th>
               <th scope="col" class="name">name</th>
@@ -61,7 +65,10 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
+    <footer class="myFooter">
+      <p>© 2021 donghoon.dev@gmail.com</p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
   </body>
   <script>

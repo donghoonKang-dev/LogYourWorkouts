@@ -1,4 +1,4 @@
-.home {
+.myhome {
     height: 100vh;
     min-height: 500px;
     position: relative;
@@ -9,4 +9,54 @@
     display: flex;
     align-items: center;
     text-align: center;
+    color: white;
+}
+.myForm {
+    height: 100vh;
+    min-height: 500px;
+    position: relative;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+.myTable {
+    height: 100vh;
+    min-height: 500px;
+    position: relative;
+    background-color: white;
+    display: flex;
+    color: black;
+}
+.myMargin {
+    height: 10vh;
+    min-height: 5px;
+    position: relative;
+    display: flex;
+}
+.myFooter {
+    height: 5vh;
+    position: relative;
+    background-color: #808080;
+    display: flex;
+    color: white;
+}
+.bg-trans-dark {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.bg-light-gray {
+    background-color: #808080;
+}
+.txt-link {
+    color: black;
+    text-decoration: none;
+}
+.txt-link-light {
+    color: white;
+    text-decoration: none;
+}
+.txt-link:hover {
+    color: red;
+    text-decoration: none;
 }
